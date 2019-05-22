@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+import decode from 'jwt-decode';
 
 import Home from './Home';
 import Register from './Register';
@@ -12,8 +12,8 @@ const isAuthenticated = () => {
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
   try {
-    jwtDecode(token);
-    jwtDecode(refreshToken);
+    decode(token);
+    decode(refreshToken);
   } catch (err) {
     return false;
   }
@@ -21,7 +21,6 @@ const isAuthenticated = () => {
   return true;
 };
 
-/* eslint-disable */ 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -44,9 +43,8 @@ export default () => (
       <Route path="/" exact component={Home} />
       <Route path="/register" exact component={Register} />
       <Route path="/login" exact component={Login} />
-      <Route path="/view-team" exact component={ViewTeam} />
+      <Route path="/view-team/:teamId?/:channelId?" exact component={ViewTeam} />
       <PrivateRoute path="/create-team" exact component={CreateTeam} />
     </Switch>
   </BrowserRouter>
 );
-

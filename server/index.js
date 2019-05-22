@@ -10,8 +10,8 @@ import jwt from 'jsonwebtoken';
 import models from './models';
 import { refreshTokens } from './auth';
 
-const SECRET = 'cnauopvg78syabilviilv8ah';
-const SECRET2 = 'asiodfhoi1hoi23jnl1kejash89vishdbidjlkfasdd';
+const SECRET = 'asiodfhoi1hoi23jnl1kejd';
+const SECRET2 = 'asiodfhoi1hoi23jnl1kejasdjlkfasdd';
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 

@@ -23,7 +23,7 @@ export default `
     user: User
     errors: [Error!]
   }
-  
+
   type LoginResponse {
     ok: Boolean!
     token: String
