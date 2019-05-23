@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import formatErrors from '../formatErrors';
 import requiresAuth from '../permissions';
 
@@ -11,20 +10,21 @@ export default {
 // hence we are losing on performance and this is something for which sequelize doesnot have 
 // a replacement but they do have something to replace this by using the raw queries
     models.sequelize.query('select * from teams join members on id = team_id where user_id = ?', {
-      replacements: [user.id],
-      model: models.Team,
-    })),
-      // models.Team.findAll(
-      //   {
-      //     include: [
-      //       {
-      //         model: models.User,
-      //         where: { id: user.id },
-      //       },
-      //     ],
-      //   },
-      //   { raw: true },
-      // )),
+        replacements: [user.id],
+        model: models.Team,
+      })),
+    // inviteTeams: requiresAuth.createResolver(async (parent, args, { models, user }) =>
+    //   models.Team.findAll(
+    //     {
+    //       include: [
+    //         {
+    //           model: models.User,
+    //           where: { id: user.id },
+    //         },
+    //       ],
+    //     },
+    //     { raw: true },
+    //   )),
   },
   Mutation: {
     addTeamMember: requiresAuth.createResolver(async (parent, { email, teamId }, { models, user }) => {

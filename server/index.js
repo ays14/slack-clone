@@ -8,7 +8,6 @@ import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import { createServer } from 'http';
 import { execute, subscribe } from 'graphql';
-import { PubSub } from 'graphql-subscriptions';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import models from './models';
@@ -68,12 +67,15 @@ app.use(
   })),
 );
 
-app.use('/graphiql', graphiqlExpress({ endpointURL: graphqlEndpoint }));
+app.use('/graphiql', graphiqlExpress({ 
+  endpointURL: graphqlEndpoint,
+  subscriptionsEndpoint: 'ws://localhost:8081/subscriptions',
+}));
 
-const server = createServer(app);
+const ws = createServer(app);
 
 models.sequelize.sync({}).then(() => {
-  server.listen(8081, () => {
+  ws.listen(8081, () => {
     // eslint-disable-next-line no-new
     new SubscriptionServer(
       {
@@ -82,7 +84,7 @@ models.sequelize.sync({}).then(() => {
         schema,
       },
       {
-        server,
+        server: ws,
         path: '/subscriptions',
       },
     );

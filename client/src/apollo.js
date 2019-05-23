@@ -37,7 +37,7 @@ const afterwareLink = new ApolloLink((operation, forward) => {
 const httpLinkWithMiddleware = afterwareLink.concat(middlewareLink.concat(httpLink));
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:8081/subscriptions',
+  uri: 'ws://127.0.0.1:8081/subscriptions',
   options: {
     reconnect: true,
   },
@@ -56,4 +56,3 @@ export default new ApolloClient({
   link,
   cache: new InMemoryCache(),
 });
- 
